@@ -63,6 +63,7 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     if (savedState != null) {
 
       // fetch the model
+      state.quizIndex = model.getQuizIndex();
     }
 
     // update the view
@@ -84,9 +85,16 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     boolean isCorrect = model.isCorrectOption(option);
     if(isCorrect) {
       state.cheatEnabled=false;
+      state.optionEnabled=false;
+      state.nextEnabled=true;
     } else {
       state.cheatEnabled=true;
+      state.optionEnabled=false;
+      state.nextEnabled=true;
     }
+
+    view.get().updateReply(isCorrect);
+    view.get().displayQuestion(state);
 
   }
 
@@ -95,6 +103,17 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     Log.e(TAG, "onNextButtonClicked()");
 
     //TODO: falta implementacion
+
+    model.updateQuizIndex();
+    state.quizIndex = model.getQuizIndex();
+
+    if(model.hasQuizFinished() == true) {
+      model.setQuizIndex(0);
+    }
+
+    //view.get().displayQuestion(state);
+    onStart();
+    view.get().displayQuestion(state);
   }
 
   @Override
