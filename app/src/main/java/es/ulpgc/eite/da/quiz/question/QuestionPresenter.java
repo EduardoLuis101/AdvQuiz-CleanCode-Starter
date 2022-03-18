@@ -84,15 +84,12 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     boolean isCorrect = model.isCorrectOption(option);
     if(isCorrect) {
-      state.cheatEnabled=false;
-      state.optionEnabled=false;
-      state.nextEnabled=true;
+      state.cheatEnabled = false;
     } else {
-      state.cheatEnabled=true;
-      state.optionEnabled=false;
-      state.nextEnabled=true;
+      state.cheatEnabled = true;
     }
 
+    enableNextButton();
     view.get().updateReply(isCorrect);
     view.get().displayQuestion(state);
 
@@ -111,7 +108,6 @@ public class QuestionPresenter implements QuestionContract.Presenter {
       model.setQuizIndex(0);
     }
 
-    //view.get().displayQuestion(state);
     onStart();
     view.get().displayQuestion(state);
   }
@@ -121,19 +117,22 @@ public class QuestionPresenter implements QuestionContract.Presenter {
     Log.e(TAG, "onCheatButtonClicked()");
 
     //TODO: falta implementacion
+    QuestionToCheatState newState = new QuestionToCheatState();
+    passStateToCheatScreen(newState);
+    view.get().navigateToCheatScreen();
+
   }
 
   private void passStateToCheatScreen(QuestionToCheatState state) {
 
     //TODO: falta implementacion
-
+    mediator.setQuestionToCheatState(state);
   }
 
   private CheatToQuestionState getStateFromCheatScreen() {
 
     //TODO: falta implementacion
-
-    return null;
+    return mediator.getCheatToQuestionState();
   }
 
   private void disableNextButton() {

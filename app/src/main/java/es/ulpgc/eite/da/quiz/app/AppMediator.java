@@ -49,7 +49,7 @@ public class AppMediator {
 
   public CheatToQuestionState getCheatToQuestionState() {
     CheatToQuestionState state = cheatToQuestionState;
-    cheatToQuestionState=null; // reset state after getting it
+    cheatToQuestionState = null; // reset state after getting it
     return state;
   }
 
