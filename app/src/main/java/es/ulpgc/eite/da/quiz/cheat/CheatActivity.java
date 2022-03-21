@@ -80,6 +80,8 @@ public class CheatActivity
 
   @Override
   public void resetAnswer() {
+    Log.e(TAG, "resetAnswer()");
+
     ((TextView) findViewById(R.id.answerTextView))
         .setText(R.string.empty_answer);
   }

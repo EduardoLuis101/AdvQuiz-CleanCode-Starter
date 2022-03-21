@@ -57,12 +57,19 @@ public class CheatPresenter implements CheatContract.Presenter {
     QuestionToCheatState savedState = getStateFromQuestionScreen();
     if (savedState != null) {
 
-      // fetch the model
-      model.setAnswer(savedState.answer);
-      // update the state
-      state.answer = savedState.answer;
+        // fetch the model
+        model.setAnswer(savedState.answer);
+
+        if (state.answerCheated){
+          // update the state
+          state.answer = model.getAnswer();
+        }
+
     }
 
+    if (state.answer == null){
+      view.get().resetAnswer();
+    }
     // update the view
     view.get().displayAnswer(state);
 
@@ -79,6 +86,10 @@ public class CheatPresenter implements CheatContract.Presenter {
 
     //TODO: falta implementacion
 
+    CheatToQuestionState newState = new CheatToQuestionState();
+    newState.answerCheated = state.answerCheated;
+    passStateToQuestionScreen(newState);
+    view.get().onFinish();
   }
 
   @Override
@@ -86,17 +97,23 @@ public class CheatPresenter implements CheatContract.Presenter {
     Log.e(TAG, "onWarningButtonClicked()");
 
     //TODO: falta implementacion
+
     //option=1 => yes, option=0 => no
     if (option == 1){
-
+      state.answerCheated = true;
+      state.answerEnabled = false;
+      state.answer = model.getAnswer();
     }else{
-
+      onBackPressed();
     }
+
+    view.get().displayAnswer(state);
   }
 
   private void passStateToQuestionScreen(CheatToQuestionState state) {
 
     //TODO: falta implementacion
+
     mediator.setCheatToQuestionState(state);
   }
 
