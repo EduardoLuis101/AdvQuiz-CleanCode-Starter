@@ -34,7 +34,7 @@ public class CheatPresenter implements CheatContract.Presenter {
     // reset state to tests
     state.answerEnabled=true;
     state.answerCheated=false;
-    state.answer = null;
+    state.answer = "???";
 
     // update the view
     view.get().resetAnswer();
@@ -45,6 +45,8 @@ public class CheatPresenter implements CheatContract.Presenter {
     Log.e(TAG, "onRestart()");
 
     //TODO: falta implementacion
+    Log.e(TAG, String.valueOf(state.answerCheated));
+
   }
 
   @Override

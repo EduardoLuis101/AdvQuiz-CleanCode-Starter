@@ -49,6 +49,18 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     //TODO: falta implementacion
 
+    model.setQuizIndex(state.quizIndex);
+    Log.e(TAG, String.valueOf(state.quizIndex));
+
+
+    if (state.cheatEnabled == false){
+      view.get().updateReply(true);
+    } else if (state.cheatEnabled && state.optionEnabled == false){
+      view.get().updateReply(false);
+    } else {
+      view.get().resetReply();
+    }
+
   }
 
 
@@ -105,11 +117,10 @@ public class QuestionPresenter implements QuestionContract.Presenter {
 
     //TODO: falta implementacion
 
-    model.updateQuizIndex();
-    state.quizIndex = model.getQuizIndex();
-
-    if(model.hasQuizFinished() == true) {
-      model.setQuizIndex(0);
+    if (model.hasQuizFinished() == false){
+      model.updateQuizIndex();
+      state.quizIndex = model.getQuizIndex();
+      Log.e(TAG, String.valueOf(state.quizIndex));
     }
 
     onStart();
